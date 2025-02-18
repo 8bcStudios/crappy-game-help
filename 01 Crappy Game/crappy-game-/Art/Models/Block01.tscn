@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj5wq0q1tsk8i"]
+
+[ext_resource type="Texture2D" uid="uid://chu0w03cvnr5m" path="res://Tester Stuff/addons/godot-prototype-texture/PNG/checker_512x512/checker_lime_512x512.png" id="1_c1sp1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7gjo"]
+
+[node name="Block01" type="RigidBody2D" groups=["Block"]]
+collision_layer = 2
+collision_mask = 2
+freeze_mode = 1
+max_contacts_reported = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("1_c1sp1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f7gjo")

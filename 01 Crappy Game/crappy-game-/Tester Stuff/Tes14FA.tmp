@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckdmj4xxb1dk7"]
+
+[ext_resource type="PackedScene" uid="uid://ohjhn503lb11" path="res://Player/player.tscn" id="1_l258y"]
+[ext_resource type="Texture2D" uid="uid://8c1mgckghnvv" path="res://Tester Stuff/addons/godot-prototype-texture/PNG/checker_512x512/checker_red_512x512.png" id="2_5n5b1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkgn4"]
+size = Vector2(512, 512)
+
+[node name="Test" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_l258y")]
+position = Vector2(317, 94)
+collision_layer = 3
+speed = 175.0
+jump_velocity = 275.0
+
+[node name="Ground" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Ground"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(64, 487)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground/StaticBody2D"]
+texture = ExtResource("2_5n5b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D"]
+shape = SubResource("RectangleShape2D_vkgn4")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Ground"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(576, 487)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground/StaticBody2D2"]
+texture = ExtResource("2_5n5b1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_vkgn4")

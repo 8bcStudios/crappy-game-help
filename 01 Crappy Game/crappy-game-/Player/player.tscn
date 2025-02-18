@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://ohjhn503lb11"]
+
+[ext_resource type="Texture2D" uid="uid://doy1sjiav0h6h" path="res://Player/Sprites/icon.svg" id="1_2jnug"]
+[ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_yiyy6"]
+[ext_resource type="Script" path="res://Player/Scripts/empty.gd" id="3_g6v6n"]
+[ext_resource type="Script" path="res://Code/Scripts/spawn_area.gd" id="3_m7hwh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j46py"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2jnug")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bkf4g"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmprg"]
+size = Vector2(71.4286, 64.2857)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8esw3"]
+radius = 282.143
+height = 942.857
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwleh"]
+size = Vector2(2285.71, 1285.71)
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.28, 0.28)
+script = ExtResource("1_yiyy6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j46py")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bkf4g")
+
+[node name="Step" type="Area2D" parent="."]
+position = Vector2(0, -28.5714)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Step"]
+position = Vector2(8.51495e-07, 89.2857)
+shape = SubResource("RectangleShape2D_gmprg")
+debug_color = Color(0.401538, 0.605638, 0.169032, 0.42)
+
+[node name="SpawnZone" type="Area2D" parent="."]
+script = ExtResource("3_g6v6n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZone"]
+position = Vector2(1.01506e-13, -217.857)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_8esw3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Spawn Area" type="Area2D" parent="Camera2D"]
+script = ExtResource("3_m7hwh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Spawn Area"]
+position = Vector2(0, -2.72478e-05)
+shape = SubResource("RectangleShape2D_vwleh")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[connection signal="body_entered" from="Step" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Step" to="." method="_on_area_2d_body_exited"]
+[connection signal="mouse_entered" from="SpawnZone" to="Camera2D/Spawn Area" method="_on_spawn_zone_mouse_entered"]
+[connection signal="mouse_exited" from="SpawnZone" to="Camera2D/Spawn Area" method="_on_spawn_zone_mouse_exited"]
